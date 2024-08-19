@@ -1,15 +1,15 @@
 namespace TorneoDeTenis.Models
 {
-    public class Torneo : Ronda
+    public class Torneo : Enfrentamiento
     {
-        public List<Ronda> Rondas { get; private set; } = [];
-        public Jugador Ganador { get; private set; }
+        public List<Enfrentamiento> Enfrentamientos { get; private set; } = [];
 
-        public void AgregarRonda(Ronda ronda) => Rondas.Add(ronda);
+        public void AgregarEnfrentamiento(Enfrentamiento enfrentamiento) => Enfrentamientos.Add(enfrentamiento);
 
-        public override Jugador ObtenerGanador()
+        public override void CalcularGanador()
         {
-            throw new NotImplementedException();
+            var ganadores = Enfrentamientos.Select(sr => sr.Ganador).ToList();
+            Ganador = ganadores.FirstOrDefault(); // Asume que hay un único ganador al final
         }
     }
 }
