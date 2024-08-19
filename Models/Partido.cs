@@ -2,15 +2,16 @@ using TorneoDeTenis.Services;
 
 namespace TorneoDeTenis.Models
 {
-    public class Partido(Jugador jugador1, Jugador jugador2, IEnfrentamientoStrategy enfrentamientoStrategy) : Enfrentamiento
+    public class Partido(Jugador primerJugador, Jugador segundoJugador, IEnfrentamientoStrategy enfrentamientoStrategy) : Enfrentamiento
     {
-        public Jugador Jugador1 { get; private set; } = jugador1;
-        public Jugador Jugador2 { get; private set; } = jugador2;
+        public Jugador PrimerJugador { get; private set; } = primerJugador;
+        public Jugador SegundoJugador { get; private set; } = segundoJugador;
+
         public IEnfrentamientoStrategy EnfrentamientoStrategy { get; private set; } = enfrentamientoStrategy;
 
-        public override void CalcularGanador()
+        public void CalcularGanador()
         {
-            Ganador = EnfrentamientoStrategy.CalcularGanador(jugador1, jugador2);
+            Ganador = EnfrentamientoStrategy.CalcularGanador(primerJugador, segundoJugador);
         }
     }
 }
