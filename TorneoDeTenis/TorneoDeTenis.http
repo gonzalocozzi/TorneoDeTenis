@@ -2,7 +2,7 @@
 
 ### POST Request para crear un Torneo
 
-POST {{TorneoDeTenis_HostAddress}}/torneo/creartorneo
+POST {{TorneoDeTenis_HostAddress}}/torneo/obtenertorneo
 Content-Type: application/json
 
 {
