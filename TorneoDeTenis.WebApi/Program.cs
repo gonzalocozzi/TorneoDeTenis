@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 
 // Custom services
 builder.Services.AddScoped<IEnfrentamientoStrategyFactory, EnfrentamientoStrategyFactory>();
+builder.Services.AddSingleton<IRandomProvider, RandomProvider>();
 builder.Services.AddScoped<ITorneoService, TorneoService>();
 
 var app = builder.Build();

@@ -12,7 +12,5 @@ namespace TorneoDeTenis.WebApi.Models
         public int Fuerza { get; set; } = fuerza;
         public int Velocidad { get; set; } = velocidad;
         public int TiempoReaccion { get; set; } = tiempoReaccion;
-
-        public int CalcularSuerte() => new Random().Next(0, 100);
     }
 }
