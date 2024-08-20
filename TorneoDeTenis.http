@@ -72,3 +72,72 @@ Content-Type: application/json
 }
 
 ###
+
+### POST Request para crear un Torneo y obtener únicamente su ganador
+
+POST {{TorneoDeTenis_HostAddress}}/torneo/obtenerganador
+Content-Type: application/json
+
+{
+  "tipoTorneo": "Masculino",
+  "jugadores": [
+    {
+      "nombre": "Jugador 1",
+      "habilidad": 85,
+      "fuerza": 90,
+      "velocidad": 75,
+      "tiempoReaccion": 80
+    },
+    {
+      "nombre": "Jugador 2",
+      "habilidad": 78,
+      "fuerza": 88,
+      "velocidad": 85,
+      "tiempoReaccion": 82
+    },
+    {
+      "nombre": "Jugador 3",
+      "habilidad": 95,
+      "fuerza": 80,
+      "velocidad": 90,
+      "tiempoReaccion": 85
+    },
+    {
+      "nombre": "Jugador 4",
+      "habilidad": 80,
+      "fuerza": 85,
+      "velocidad": 88,
+      "tiempoReaccion": 79
+    },
+    {
+      "nombre": "Jugador 5",
+      "habilidad": 92,
+      "fuerza": 87,
+      "velocidad": 78,
+      "tiempoReaccion": 83
+    },
+    {
+      "nombre": "Jugador 6",
+      "habilidad": 76,
+      "fuerza": 82,
+      "velocidad": 79,
+      "tiempoReaccion": 81
+    },
+    {
+      "nombre": "Jugador 7",
+      "habilidad": 88,
+      "fuerza": 91,
+      "velocidad": 82,
+      "tiempoReaccion": 84
+    },
+    {
+      "nombre": "Jugador 8",
+      "habilidad": 83,
+      "fuerza": 86,
+      "velocidad": 77,
+      "tiempoReaccion": 80
+    }
+  ]
+}
+
+###
