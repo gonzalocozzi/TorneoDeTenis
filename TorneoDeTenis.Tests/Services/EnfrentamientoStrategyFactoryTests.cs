@@ -16,7 +16,7 @@ namespace TorneoDeTenis.Tests.Services
         }
 
         [Fact]
-        public void CrearStrategy_CuandoEsTipoFemenino_DeberiaRetornarEnfrentamientoFemeninoStrategy()
+        public void CrearStrategy_CuandoEsTipoFemenino_DeberiaDevolverEnfrentamientoFemeninoStrategy()
         {
             var strategy = _factory.CrearStrategy(TipoTorneo.Femenino);
 
@@ -24,7 +24,7 @@ namespace TorneoDeTenis.Tests.Services
         }
 
         [Fact]
-        public void CrearStrategy_CuandoEsTipoMasculino_DeberiaRetornarEnfrentamientoMasculinoStrategy()
+        public void CrearStrategy_CuandoEsTipoMasculino_DeberiaDevolverEnfrentamientoMasculinoStrategy()
         {
             var strategy = _factory.CrearStrategy(TipoTorneo.Masculino);
 
