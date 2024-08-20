@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorneoDeTenis", "TorneoDeTenis\TorneoDeTenis.csproj", "{BC2F87F9-03DF-4122-AF3D-B5F25723415C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorneoDeTenis.Tests", "TorneoDeTenis.Tests\TorneoDeTenis.Tests.csproj", "{A20ADE4D-B5F6-4300-A078-A69A19294881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorneoDeTenis.Tests", "TorneoDeTenis.Tests\TorneoDeTenis.Tests.csproj", "{5D126549-7BE9-4531-A800-10EB2C6071F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorneoDeTenis.WebApi", "TorneoDeTenis.WebApi\TorneoDeTenis.WebApi.csproj", "{F648830A-6AA0-4BB6-B1BC-226B31B08887}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +16,13 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BC2F87F9-03DF-4122-AF3D-B5F25723415C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC2F87F9-03DF-4122-AF3D-B5F25723415C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC2F87F9-03DF-4122-AF3D-B5F25723415C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC2F87F9-03DF-4122-AF3D-B5F25723415C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D126549-7BE9-4531-A800-10EB2C6071F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D126549-7BE9-4531-A800-10EB2C6071F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D126549-7BE9-4531-A800-10EB2C6071F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D126549-7BE9-4531-A800-10EB2C6071F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A20ADE4D-B5F6-4300-A078-A69A19294881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20ADE4D-B5F6-4300-A078-A69A19294881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20ADE4D-B5F6-4300-A078-A69A19294881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20ADE4D-B5F6-4300-A078-A69A19294881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F648830A-6AA0-4BB6-B1BC-226B31B08887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F648830A-6AA0-4BB6-B1BC-226B31B08887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F648830A-6AA0-4BB6-B1BC-226B31B08887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F648830A-6AA0-4BB6-B1BC-226B31B08887}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
