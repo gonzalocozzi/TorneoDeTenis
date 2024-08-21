@@ -6,7 +6,7 @@ POST {{TorneoDeTenis_HostAddress}}/torneo/obtenertorneo
 Content-Type: application/json
 
 {
-  "tipoTorneo": "Masculino",
+  "tipoTorneo": 0,
   "jugadores": [
     {
       "nombre": "Jugador 1",
@@ -75,7 +75,7 @@ POST {{TorneoDeTenis_HostAddress}}/torneo/obtenerganador
 Content-Type: application/json
 
 {
-  "tipoTorneo": "Masculino",
+  "tipoTorneo": 1,
   "jugadores": [
     {
       "nombre": "Jugador 1",
