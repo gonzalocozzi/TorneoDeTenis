@@ -4,6 +4,6 @@ namespace TorneoDeTenis.WebApi.Models
     {
         public int NumeroDeRonda { get; internal set; }
 
-        public Jugador Ganador { get; internal set; }
+        public Jugador Ganador { get; set; }
     }
 }
