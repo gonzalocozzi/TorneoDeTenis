@@ -25,7 +25,7 @@ Requisitos Previos
 
 *   [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 *   [Docker](https://www.docker.com/get-started)
-*   [Azure Data Studio](https://azure.microsoft.com/en-us/services/data-studio/) (opcional, para conectarse a la base de datos)
+*   [Azure Data Studio](https://azure.microsoft.com/es-es/products/data-studio/) (opcional, para conectarse a la base de datos)
 
 Configuración
 -------------
