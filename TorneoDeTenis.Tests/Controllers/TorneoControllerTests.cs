@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using TorneoDeTenis.WebApi.Controllers;
 using TorneoDeTenis.WebApi.DTO;
 using TorneoDeTenis.WebApi.Enums;
@@ -20,7 +19,7 @@ namespace TorneoDeTenis.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerTorneo_CuandoModelStateEsInvalido_DeberiaDevolverBadRequest()
+        public async Task ObtenerTorneo_CuandoModelStateEsInvalido_DeberiaDevolverBadRequest()
         {
             // Arrange
             _controller.ModelState.AddModelError("TipoTorneo", "Required");
@@ -32,7 +31,7 @@ namespace TorneoDeTenis.Tests.Controllers
             };
 
             // Act
-            var result = _controller.ObtenerTorneo(torneoRequest);
+            var result = await _controller.ObtenerTorneo(torneoRequest);
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
@@ -41,7 +40,7 @@ namespace TorneoDeTenis.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerTorneo_CuandoLanzaExcepcion_DeberiaDevolverBadRequest()
+        public async Task ObtenerTorneo_CuandoLanzaExcepcion_DeberiaDevolverBadRequest()
         {
             // Arrange
             var torneoRequest = new TorneoRequest
@@ -57,7 +56,7 @@ namespace TorneoDeTenis.Tests.Controllers
             _mockTorneoService.Setup(service => service.CrearTorneo(torneoRequest)).Throws(new Exception("Excepción de prueba"));
 
             // Act
-            var result = _controller.ObtenerTorneo(torneoRequest);
+            var result = await _controller.ObtenerTorneo(torneoRequest);
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
@@ -66,7 +65,7 @@ namespace TorneoDeTenis.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerTorneo_CuandoRequestEsValido_DeberiaDevolverResultadoOk()
+        public async Task ObtenerTorneo_CuandoRequestEsValido_DeberiaDevolverResultadoOk()
         {
             // Arrange
             var torneoRequest = new TorneoRequest
@@ -82,10 +81,10 @@ namespace TorneoDeTenis.Tests.Controllers
             };
 
             var torneoVacio = new Torneo();
-            _mockTorneoService.Setup(service => service.CrearTorneo(torneoRequest)).Returns(torneoVacio); // No me interesa el contenido del torneo, solamente la respuesta de la API
+            _mockTorneoService.Setup(service => service.CrearTorneo(torneoRequest)).ReturnsAsync(torneoVacio); // No me interesa el contenido del torneo, solamente la respuesta de la API
 
             // Act
-            var result = _controller.ObtenerTorneo(torneoRequest);
+            var result = await _controller.ObtenerTorneo(torneoRequest);
 
             // Assert
             var contentResult = Assert.IsType<ContentResult>(result);
@@ -93,13 +92,13 @@ namespace TorneoDeTenis.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerGanador_CuandoModelStateEsInvalido_DeberiaDevolverBadRequest()
+        public async Task ObtenerGanador_CuandoModelStateEsInvalido_DeberiaDevolverBadRequest()
         {
             // Arrange
             _controller.ModelState.AddModelError("TipoTorneo", "Required");
 
             // Act
-            var result = _controller.ObtenerGanador(new TorneoRequest());
+            var result = await _controller.ObtenerGanador(new TorneoRequest());
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
@@ -107,7 +106,7 @@ namespace TorneoDeTenis.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerGanador_CuandoLanzaExcepcion_DeberiaDevolverBadRequest()
+        public async Task ObtenerGanador_CuandoLanzaExcepcion_DeberiaDevolverBadRequest()
         {
             // Arrange
             var torneoRequest = new TorneoRequest
@@ -123,7 +122,7 @@ namespace TorneoDeTenis.Tests.Controllers
             _mockTorneoService.Setup(s => s.CrearTorneo(It.IsAny<TorneoRequest>())).Throws(new Exception("Excepción de prueba"));
 
             // Act
-            var result = _controller.ObtenerGanador(torneoRequest);
+            var result = await _controller.ObtenerGanador(torneoRequest);
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
@@ -132,7 +131,7 @@ namespace TorneoDeTenis.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerGanador_CuandoCreaTorneoCorrectamente_DeberiaDevolverResultadoOkConGanadorEsperado()
+        public async Task ObtenerGanador_CuandoCreaTorneoCorrectamente_DeberiaDevolverResultadoOkConGanadorEsperado()
         {
             // Arrange
             var torneoRequest = new TorneoRequest
@@ -149,13 +148,13 @@ namespace TorneoDeTenis.Tests.Controllers
 
             var ganadorEsperado = new Jugador("Jugador 2", 85, 75, 65, 55);
 
-            _mockTorneoService.Setup(s => s.CrearTorneo(It.IsAny<TorneoRequest>())).Returns(new Torneo
+            _mockTorneoService.Setup(s => s.CrearTorneo(It.IsAny<TorneoRequest>())).ReturnsAsync(new Torneo
             {
                 Ganador = ganadorEsperado
             });
 
             // Act
-            var result = _controller.ObtenerGanador(torneoRequest);
+            var result = await _controller.ObtenerGanador(torneoRequest);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
