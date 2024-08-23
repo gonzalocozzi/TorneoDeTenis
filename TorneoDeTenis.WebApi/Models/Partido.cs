@@ -1,17 +1,31 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using TorneoDeTenis.WebApi.Services;
 
 namespace TorneoDeTenis.WebApi.Models
 {
-    public class Partido(Jugador primerJugador, Jugador segundoJugador, IEnfrentamientoStrategy enfrentamientoStrategy) : Enfrentamiento
+    public class Partido : Enfrentamiento
     {
-        public Jugador PrimerJugador { get; private set; } = primerJugador;
-        public Jugador SegundoJugador { get; private set; } = segundoJugador;
+        public Jugador PrimerJugador { get; private set; }
+        public Jugador SegundoJugador { get; private set; }
 
-        public IEnfrentamientoStrategy EnfrentamientoStrategy { get; private set; } = enfrentamientoStrategy;
+        [NotMapped]
+        public IEnfrentamientoStrategy EnfrentamientoStrategy { get; private set; }
 
-        public void CalcularGanador()
+        public Partido(Jugador primerJugador, Jugador segundoJugador, int numeroDeRonda, IEnfrentamientoStrategy enfrentamientoStrategy)
         {
-            Ganador = EnfrentamientoStrategy.CalcularGanador(primerJugador, segundoJugador);
+            PrimerJugador = primerJugador;
+            SegundoJugador = segundoJugador;
+            NumeroDeRonda = numeroDeRonda;
+            EnfrentamientoStrategy = enfrentamientoStrategy;
+            Fecha = DateTime.UtcNow;
         }
+
+        // Constructor sin parámetros para EF Core
+        protected Partido()
+        {
+        }
+
+        public void CalcularGanador() => Ganador = EnfrentamientoStrategy.CalcularGanador(PrimerJugador, SegundoJugador);
     }
+
 }
