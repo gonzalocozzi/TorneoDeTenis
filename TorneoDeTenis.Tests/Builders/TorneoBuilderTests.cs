@@ -1,5 +1,7 @@
 using TorneoDeTenis.WebApi.Builders;
+using TorneoDeTenis.WebApi.Enums;
 using TorneoDeTenis.WebApi.Exceptions;
+using TorneoDeTenis.WebApi.Infraestructure.Data;
 using TorneoDeTenis.WebApi.Models;
 using TorneoDeTenis.WebApi.Services;
 
@@ -8,16 +10,20 @@ namespace TorneoDeTenis.Tests.Builders
     public class TorneoBuilderTests
     {
         private readonly Mock<IEnfrentamientoStrategy> _enfrentamientoStrategyMock;
+        private readonly Mock<IJugadorRepository> _jugadorRepositoryMock;
+        private readonly Mock<ITorneoRepository> _torneoRepositoryMock;
         private readonly TorneoBuilder _torneoBuilder;
 
         public TorneoBuilderTests()
         {
             _enfrentamientoStrategyMock = new Mock<IEnfrentamientoStrategy>();
-            _torneoBuilder = new TorneoBuilder(_enfrentamientoStrategyMock.Object);
+            _jugadorRepositoryMock = new Mock<IJugadorRepository>();
+            _torneoRepositoryMock = new Mock<ITorneoRepository>();
+            _torneoBuilder = new TorneoBuilder(_enfrentamientoStrategyMock.Object, _jugadorRepositoryMock.Object, _torneoRepositoryMock.Object);
         }
 
         [Fact]
-        public void CrearTorneo_CuandoNumeroDeJugadoresEsInvalido_DeberiaLanzarExcepcion()
+        public async Task CrearTorneo_CuandoNumeroDeJugadoresEsInvalido_DeberiaLanzarExcepcion()
         {
             // Arrange
             var jugadores = new List<Jugador>
@@ -28,11 +34,11 @@ namespace TorneoDeTenis.Tests.Builders
             };
 
             // Act & Assert
-            Assert.Throws<NumeroDeJugadoresInvalidoException>(() => _torneoBuilder.CrearTorneo(jugadores));
+            await Assert.ThrowsAsync<NumeroDeJugadoresInvalidoException>(async () => await _torneoBuilder.CrearTorneo(jugadores, TipoTorneo.Femenino));
         }
 
         [Fact]
-        public void CrearTorneo_CuandoNumeroDeJugadoresEsValido_DeberiaCrearRondasCorrectamente()
+        public async Task CrearTorneo_CuandoNumeroDeJugadoresEsValido_DeberiaCrearRondasCorrectamente()
         {
             // Arrange
             var jugadores = new List<Jugador>
@@ -47,7 +53,7 @@ namespace TorneoDeTenis.Tests.Builders
                 .Returns((Jugador j1, Jugador j2) => j1.Habilidad > j2.Habilidad ? j1 : j2);
 
             // Act
-            var torneo = _torneoBuilder.CrearTorneo(jugadores);
+            var torneo = await _torneoBuilder.CrearTorneo(jugadores, TipoTorneo.Masculino);
 
             // Assert
             Assert.NotNull(torneo);
@@ -58,7 +64,7 @@ namespace TorneoDeTenis.Tests.Builders
         }
 
         [Fact]
-        public void CrearTorneo_DeberiaActualizarGanadorEnRondaPrevia()
+        public async Task CrearTorneo_DeberiaActualizarGanadorEnRondaPrevia()
         {
             // Arrange
             var jugadores = new List<Jugador>
@@ -73,7 +79,7 @@ namespace TorneoDeTenis.Tests.Builders
                 .Returns((Jugador j1, Jugador j2) => j1.Habilidad > j2.Habilidad ? j1 : j2);
 
             // Act
-            var torneo = _torneoBuilder.CrearTorneo(jugadores);
+            var torneo = await _torneoBuilder.CrearTorneo(jugadores, TipoTorneo.Femenino);
 
             // Assert
             var primeraRonda = torneo.Enfrentamientos[0] as Torneo;
@@ -81,11 +87,13 @@ namespace TorneoDeTenis.Tests.Builders
 
             Assert.NotNull(primeraRonda?.Ganador);
             Assert.Equal("Jugador 4", primeraRonda?.Ganador?.Nombre);
+
+            Assert.NotNull(segundaRonda?.Ganador);
             Assert.Equal("Jugador 4", segundaRonda?.Ganador?.Nombre);
         }
 
         [Fact]
-        public void CrearTorneo_CuandoNumeroDeJugadoresEsPotenciaDeDos_DeberiaCalcularGanadorCorrectamente()
+        public async Task CrearTorneo_CuandoNumeroDeJugadoresEsPotenciaDeDos_DeberiaCalcularGanadorCorrectamente()
         {
             // Arrange
             var jugadores = new List<Jugador>
@@ -104,7 +112,7 @@ namespace TorneoDeTenis.Tests.Builders
                 .Returns((Jugador j1, Jugador j2) => j1.Habilidad > j2.Habilidad ? j1 : j2);
 
             // Act
-            var torneo = _torneoBuilder.CrearTorneo(jugadores);
+            var torneo = await _torneoBuilder.CrearTorneo(jugadores, TipoTorneo.Masculino);
 
             // Assert
             Assert.NotNull(torneo);

@@ -1,6 +1,7 @@
 using TorneoDeTenis.WebApi.DTO;
 using TorneoDeTenis.WebApi.Enums;
 using TorneoDeTenis.WebApi.Exceptions;
+using TorneoDeTenis.WebApi.Infraestructure.Data;
 using TorneoDeTenis.WebApi.Services;
 
 namespace TorneoDeTenis.Tests.Services
@@ -8,16 +9,20 @@ namespace TorneoDeTenis.Tests.Services
     public class TorneoServiceTests
     {
         private readonly Mock<IEnfrentamientoStrategyFactory> _strategyFactoryMock;
+        private readonly Mock<IJugadorRepository> _jugadorRepositoryMock;
+        private readonly Mock<ITorneoRepository> _torneoRepositoryMock;
         private readonly TorneoService _torneoService;
 
         public TorneoServiceTests()
         {
             _strategyFactoryMock = new Mock<IEnfrentamientoStrategyFactory>();
-            _torneoService = new TorneoService(_strategyFactoryMock.Object);
+            _jugadorRepositoryMock = new Mock<IJugadorRepository>();
+            _torneoRepositoryMock = new Mock<ITorneoRepository>();
+            _torneoService = new TorneoService(_strategyFactoryMock.Object, _jugadorRepositoryMock.Object, _torneoRepositoryMock.Object);
         }
 
         [Fact]
-        public void CrearTorneo_DeberiaLlamarAStrategyFactory_ConTipoTorneoCorrecto()
+        public async Task CrearTorneo_DeberiaLlamarAStrategyFactory_ConTipoTorneoCorrecto()
         {
             // Arrange
             var torneoRequest = new TorneoRequest
@@ -34,14 +39,14 @@ namespace TorneoDeTenis.Tests.Services
                                 .Returns(strategyMock.Object);
 
             // Act
-            _torneoService.CrearTorneo(torneoRequest);
+            await _torneoService.CrearTorneo(torneoRequest);
 
             // Assert
             _strategyFactoryMock.Verify(factory => factory.CrearStrategy(TipoTorneo.Masculino), Times.Once);
         }
 
         [Fact]
-        public void CrearTorneo_DeberiaDevolverTorneo_ConJugadoresEsperados()
+        public async Task CrearTorneo_DeberiaDevolverTorneo_ConJugadoresEsperados()
         {
             // Arrange
             var torneoRequest = new TorneoRequest
@@ -60,7 +65,7 @@ namespace TorneoDeTenis.Tests.Services
                                 .Returns(strategyMock.Object);
 
             // Act
-            var torneo = _torneoService.CrearTorneo(torneoRequest);
+            var torneo = await _torneoService.CrearTorneo(torneoRequest);
 
             // Assert
             Assert.NotNull(torneo);
@@ -68,7 +73,7 @@ namespace TorneoDeTenis.Tests.Services
         }
 
         [Fact]
-        public void CrearTorneo_CuandoNoSeAsignanJugadores_DeberiaLanzarNumeroDeJugadoresInvalidoException()
+        public async Task CrearTorneo_CuandoNoSeAsignanJugadores_DeberiaLanzarNumeroDeJugadoresInvalidoException()
         {
             // Arrange
             var torneoRequest = new TorneoRequest
@@ -78,12 +83,12 @@ namespace TorneoDeTenis.Tests.Services
             };
 
             // Act & Assert
-            var exception = Assert.Throws<NumeroDeJugadoresInvalidoException>(() => _torneoService.CrearTorneo(torneoRequest));
+            var exception = await Assert.ThrowsAsync<NumeroDeJugadoresInvalidoException>(() => _torneoService.CrearTorneo(torneoRequest));
             Assert.Equal("El número de jugadores debe ser una potencia de 2.", exception.Message);
         }
 
         [Fact]
-        public void CrearTorneo_DeberiaCrearTorneo_ConNumeroCorrectoDeRondas()
+        public async Task CrearTorneo_DeberiaCrearTorneo_ConNumeroCorrectoDeRondas()
         {
             // Arrange
             var torneoRequest = new TorneoRequest
@@ -107,7 +112,7 @@ namespace TorneoDeTenis.Tests.Services
                                 .Returns(strategyMock.Object);
 
             // Act
-            var torneo = _torneoService.CrearTorneo(torneoRequest);
+            var torneo = await _torneoService.CrearTorneo(torneoRequest);
 
             // Assert
             Assert.NotNull(torneo);
