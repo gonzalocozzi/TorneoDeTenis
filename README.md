@@ -16,6 +16,7 @@ Tabla de Contenidos
   - [Ejecutar Pruebas](#ejecutar-pruebas)
   - [Conectarse a la Base de Datos](#conectarse-a-la-base-de-datos)
   - [Uso](#uso)
+    - [TorneoRequest](#torneorequest)
     - [Jugar un torneo](#jugar-un-torneo)
       - [Obtener solamente el ganador](#obtener-solamente-el-ganador)
   - [Licencia](#licencia)
@@ -85,10 +86,50 @@ Puedes conectarte al servidor SQL que se ejecuta dentro del contenedor Docker us
 *   **Servidor:** `localhost,1433`
 *   **Base de Datos:** `TorneoDeTenis`
 *   **Usuario:** `sa`
-*   **Contraseña:** `YourStrong!Passw0rd`
+*   **Contraseña:** `YourStrong!Passw0rd` (ejemplo)
 
 Uso
 ---
+
+### TorneoRequest
+
+A fin de indicarle los jugadores del torneo a la API, debe enviar un objeto JSON como el del siguiente ejemplo:
+
+    {
+      "tipoTorneo": 1, (0: torneo masculino, 1: torneo femenino)
+      "jugadores": [
+        {
+          "nombre": "Jugador 1",
+          "habilidad": 85,
+          "fuerza": 90,
+          "velocidad": 75,
+          "tiempoReaccion": 80
+        },
+        {
+          "nombre": "Jugador 2",
+          "habilidad": 78,
+          "fuerza": 88,
+          "velocidad": 85,
+          "tiempoReaccion": 82
+        },
+        {
+          "nombre": "Jugador 3",
+          "habilidad": 95,
+          "fuerza": 80,
+          "velocidad": 90,
+          "tiempoReaccion": 85
+        },
+        {
+          "nombre": "Jugador 4",
+          "habilidad": 80,
+          "fuerza": 85,
+          "velocidad": 88,
+          "tiempoReaccion": 79
+        }
+      ]
+    }
+
+El número de de jugadores debe ser una potencia de 2, de otra forma recibirá una excepción y un HTTP 400 (Bad Request).
 
 ### Jugar un torneo
 
