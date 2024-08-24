@@ -19,13 +19,15 @@ Tabla de Contenidos
     - [TorneoRequest](#torneorequest)
     - [Jugar un torneo](#jugar-un-torneo)
       - [Obtener solamente el ganador](#obtener-solamente-el-ganador)
+  - [Próximos pasos](#próximos-pasos)
   - [Licencia](#licencia)
 
 Requisitos Previos
 ------------------
 
 *   [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-*   [Docker](https://www.docker.com/get-started)
+*   [Docker](https://www.docker.com/get-started) junto a [Docker Compose](https://docs.docker.com/compose/)
+*   [SQL Server](https://www.microsoft.com/es-es/sql-server/sql-server-downloads)
 *   [Azure Data Studio](https://azure.microsoft.com/es-es/products/data-studio/) (opcional, para conectarse a la base de datos)
 
 Configuración
@@ -81,7 +83,7 @@ Si ejecutas las pruebas en un contenedor Docker, asegúrate de que el contenedor
 Conectarse a la Base de Datos
 -----------------------------
 
-Puedes conectarte al servidor SQL que se ejecuta dentro del contenedor Docker usando Azure Data Studio:
+Puedes conectarte al servidor de SQL Server que se ejecuta dentro del contenedor Docker usando Azure Data Studio:
 
 *   **Servidor:** `localhost,1433`
 *   **Base de Datos:** `TorneoDeTenis`
@@ -144,6 +146,11 @@ Para jugar un nuevo torneo obteniendo solamente su ganador, envía la misma soli
 
     POST http://localhost:5292/api/Torneo/ObtenerGanador
 
+Próximos pasos
+--------
+- Recurso de API para obtener partidos o torneos por fecha.
+- Recurso de API para obtener torneos por tipo.
+- Configuración de coverlet para excluir de las cobertura de pruebas algunas clases y directorios, como Migrations y Exceptions.
 
 Licencia
 --------
